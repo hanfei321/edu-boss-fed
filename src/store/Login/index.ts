@@ -18,6 +18,7 @@ const Login: Module<any, any> = ({
   },
   mutations: {
     userLoginData(state, userLoginData: any) {
+      debugger
       state.userLoginData = JSON.parse(userLoginData)
     },
     getInfoData(state, getInfoData) {
@@ -28,6 +29,7 @@ const Login: Module<any, any> = ({
 
 
     async loginAction({ commit }, payload: any) {
+      debugger
       let payloadLogin = Object.assign({}, payload)
       delete payloadLogin.isbtnLoading
       //获取token
@@ -36,7 +38,7 @@ const Login: Module<any, any> = ({
       let loginActionREQ = LoginRequest.data.content
       LocalCache.setCache('user', LoginRequest.data.content)
       if (LoginRequest.data.state !== 1) {
-        debugger;
+
         ElMessage.error(LoginRequest.data.message)
 
       } else {
@@ -52,12 +54,15 @@ const Login: Module<any, any> = ({
       commit('userLoginData', LoginRequest.data.content)
 
       //获取用户信息
+
+    },
+    async userinfoAction({ commit }) {
+      debugger
       const getInfoAction = await getInfoRequest()
       const userinfoData = getInfoAction.data.content
       LocalCache.setCache('userinfo', userinfoData)
       console.log(getInfoAction.data);
       commit('getInfoData', userinfoData)
-
     },
     //刷新重新获取vuex数据
     loadLogin({ commit }) {

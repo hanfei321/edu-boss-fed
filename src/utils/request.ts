@@ -1,12 +1,17 @@
 import axios from 'axios'
-import store from '@/store'
 import router from '@/router'
 import qs from 'qs'
 import Login from '@/store/Login'
 import { AxiosRequestConfig } from 'axios'
 import LocalCache from './cache'
 import { ElMessage } from 'element-plus'
+import store from '@/store'
 import { useStore } from 'vuex'
+
+
+
+debugger
+
 interface AXIrequestconfig extends AxiosRequestConfig {
   headers?: any
 }
@@ -25,6 +30,8 @@ function redirectLogin() {
 }
 
 function refreshToken() {
+
+  debugger
   return axios.create()({
     method: 'POST',
     url: '/front/user/refresh_token',
@@ -76,15 +83,21 @@ request.interceptors.response.use(function (response) { // 状态码为 2xx 都�
 
       // 刷新 token
       if (!isRfreshing) {
+        debugger
         isRfreshing = true // 开启刷新状态
         // 尝试刷新获取新的 token
         return refreshToken().then(res => {
+          console.log(res.data.success);
+
           if (!res.data.success) {
             throw new Error('刷新 Token 失败')
           }
 
           // 刷新 token 成功了
-          store2.commit('Login/userLoginData', res.data.content)
+          debugger
+          // store2.commit('Login/userLoginData', res.data.content)
+
+          // store2.dispatch('Login/loginAction', res.data.content)
 
 
           // 把 requests 队列中的请求重新发出去

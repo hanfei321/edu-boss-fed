@@ -40,6 +40,7 @@ import type { ElForm, FormInstance, FormRules } from 'element-plus';
 import LocalCache from '@/utils/cache';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import md5 from 'blueimp-md5';
 
 // do not use same name with ref
 const form = reactive({
@@ -68,8 +69,9 @@ const onSubmit = () => {
     if (valid) {
       isbtnLoading.value = true;
       if (checkedpassword) {
+        let hash = md5(form.password);
         LocalCache.setCache('phone', form.phone);
-        LocalCache.setCache('password', form.password);
+        LocalCache.setCache('password', hash);
       } else {
         LocalCache.deleteCache('phone');
         LocalCache.deleteCache('password');

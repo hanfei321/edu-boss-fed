@@ -1,7 +1,9 @@
 <template>
   <div class="resource">
-    <h1>资源</h1>
+    <resourceList></resourceList>
   </div>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import resourceList from './cpns/resource-list.vue';
+</script>
 <style lang="scss" scoped></style>
